@@ -1,6 +1,6 @@
 use crate::util;
 
-pub fn solve() {
+pub fn solve() -> String {
     // File hosts must exist in current path before this produces output
 
     let input_str = util::get_input("inputs/day1");
@@ -9,8 +9,10 @@ pub fn solve() {
     let p2 = part2(&mut group_cals);
     let p1 = group_cals.iter().max().unwrap();
 
-    println!("Day 1 Part 1: {:?}", p1);
-    println!("Day 1 Part 2: {:?}", p2);
+    println!("\tDay 1 Part 1: {:?}", p1);
+    println!("\tDay 1 Part 2: {:?}", p2);
+
+    return String::from("Day 1");
 }
 
 pub fn part1(input_str: String) -> Vec<u32> {
@@ -41,7 +43,6 @@ pub fn part2(group_cals: &mut Vec<u32>) -> u32 {
 
 #[cfg(test)]
 mod tests {
-
     const INPUT: &str = "\
             1000\n\
             2000\n\

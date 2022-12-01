@@ -12,11 +12,14 @@ Hopefully this will help somebody.
 Feel free to use as you see fit.
 
 ```
-❯ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
-     Running `target/debug/aoc22`
-Day 1 Part 1: 68442
-Day 1 Part 2: 204837
+❯ cargo run --release
+   Compiling aoc22 v0.1.0 (/home/icon/Projects/aoc22)
+    Finished release [optimized] target(s) in 0.21s
+     Running `target/release/aoc22`
+Running All Day Solves:
+        Day 1 Part 1: 68442
+        Day 1 Part 2: 204837
+Day 1: 112.95µs 
 
 ❯ cargo test
    Compiling aoc22 v0.1.0 (/home/icon/Projects/aoc22)
