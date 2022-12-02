@@ -69,10 +69,10 @@ impl Round {
         };
     }
 
-    fn resolve(self, round2: bool) -> u32 {
+    fn resolve(self, part2: bool) -> u32 {
         let mut score = 0;
 
-        if !round2 {
+        if !part2 {
             score += self.p2.score;
             // part 1
             if self.p1.counter == self.p2.name {
