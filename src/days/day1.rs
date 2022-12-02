@@ -43,25 +43,11 @@ pub fn part2(group_cals: &mut Vec<u32>) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    const INPUT: &str = "\
-            1000\n\
-            2000\n\
-            3000\n\
-            \n\
-            4000\n\
-            \n\
-            5000\n\
-            6000\n\
-            \n\
-            7000\n\
-            8000\n\
-            9000\n\
-            \n\
-            10000\n";
-
     #[test]
     fn day1_test() {
-        let mut group_cals = super::part1(INPUT.to_string());
+        let input_str = super::util::get_input("inputs/day1_test");
+
+        let mut group_cals = super::part1(input_str);
 
         let p2 = super::part2(&mut group_cals);
         let p1 = *group_cals.iter().max().unwrap();

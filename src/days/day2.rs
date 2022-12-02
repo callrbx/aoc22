@@ -113,18 +113,18 @@ impl Round {
 }
 
 pub fn solve() -> String {
-    let input_str = util::get_input_lines("inputs/day2");
-    let p1 = part1(input_str.clone());
+    let input_str = util::get_input("inputs/day2");
+    let p1 = part1(&input_str);
     println!("\tDay 2 Part 1: {:?}", p1);
-    let p2 = part2(input_str);
+    let p2 = part2(&input_str);
     println!("\tDay 2 Part 2: {:?}", p2);
 
     return String::from("Day 2");
 }
 
-pub fn part1(input_str: Vec<String>) -> u32 {
+pub fn part1(input_str: &String) -> u32 {
     let mut score = 0;
-    for line in input_str {
+    for line in input_str.split("\n") {
         match line.split_once(" ") {
             Some(res) => {
                 let round = Round::new(res);
@@ -137,9 +137,9 @@ pub fn part1(input_str: Vec<String>) -> u32 {
     return score;
 }
 
-pub fn part2(input_str: Vec<String>) -> u32 {
+pub fn part2(input_str: &String) -> u32 {
     let mut score = 0;
-    for line in input_str {
+    for line in input_str.split("\n") {
         match line.split_once(" ") {
             Some(res) => {
                 let round = Round::new(res);
@@ -156,18 +156,18 @@ pub fn part2(input_str: Vec<String>) -> u32 {
 mod tests {
     #[test]
     fn part1() {
-        let input_str = super::util::get_input_lines("inputs/day2_test");
+        let input_str = super::util::get_input("inputs/day2_test");
 
-        let p1 = super::part1(input_str);
+        let p1 = super::part1(&input_str);
 
         assert_eq!(p1, 15);
     }
 
     #[test]
     fn part2() {
-        let input_str = super::util::get_input_lines("inputs/day2_test");
+        let input_str = super::util::get_input("inputs/day2_test");
 
-        let p1 = super::part2(input_str);
+        let p1 = super::part2(&input_str);
 
         assert_eq!(p1, 12);
     }
