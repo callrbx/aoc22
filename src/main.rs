@@ -12,4 +12,5 @@ fn main() {
     println!("Running All Day Solves:");
 
     time_solve(days::day1::solve);
+    time_solve(days::day2::solve);
 }

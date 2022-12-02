@@ -1,21 +1,15 @@
 use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+use std::io::{self, BufRead};
 use std::path::Path;
 
 pub fn get_input(filename: &str) -> String {
-    let mut input: String = String::new();
-    for line in get_input_lines(filename) {
-        if let Ok(l) = line {
-            input.push_str(&l);
-            input.push_str("\n");
-        }
-    }
-    return input;
+    let input = get_input_lines(filename);
+    return input.join("\n");
 }
 
-pub fn get_input_lines(filename: &str) -> std::io::Lines<BufReader<File>> {
+pub fn get_input_lines(filename: &str) -> Vec<String> {
     if let Ok(lines) = read_lines(filename) {
-        return lines;
+        return lines.map(|l| l.expect("Could not parse line")).collect();
     } else {
         eprint!("Failed to read {}", filename);
         std::process::exit(1);
