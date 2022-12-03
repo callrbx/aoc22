@@ -1,6 +1,8 @@
 use crate::util;
 
-pub fn solve() -> String {
+const DAY_STR: &str = "Day 1";
+
+pub fn solve() -> (String, String) {
     // File hosts must exist in current path before this produces output
 
     let input_str = util::get_input("inputs/day1");
@@ -9,10 +11,10 @@ pub fn solve() -> String {
     let p2 = part2(&mut group_cals);
     let p1 = group_cals.iter().max().unwrap();
 
-    println!("\tDay 1 Part 1: {:?}", p1);
-    println!("\tDay 1 Part 2: {:?}", p2);
-
-    return String::from("Day 1");
+    return (
+        DAY_STR.to_string(),
+        String::from(format!("\n\tPart 1: {:?}\n\tPart 2: {:?}", p1, p2)),
+    );
 }
 
 pub fn part1(input_str: String) -> Vec<u32> {

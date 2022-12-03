@@ -2,10 +2,10 @@ use std::time::Instant;
 mod days;
 mod util;
 
-fn time_solve(func: fn() -> String) {
+fn time_solve(func: fn() -> (String, String)) {
     let start = Instant::now();
-    let day_name: String = func();
-    println!("{}: {:.2?} ", day_name, start.elapsed())
+    let (day, output) = func();
+    println!("{}: {:.2?} {}", day, start.elapsed(), output)
 }
 
 fn main() {

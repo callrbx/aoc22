@@ -1,5 +1,7 @@
 use crate::util;
 
+const DAY_STR: &str = "Day 2";
+
 const WON: u32 = 6;
 const LOST: u32 = 0;
 const TIE: u32 = 3;
@@ -112,14 +114,15 @@ impl Round {
     }
 }
 
-pub fn solve() -> String {
+pub fn solve() -> (String, String) {
     let input_str = util::get_input("inputs/day2");
     let p1 = part1(&input_str);
-    println!("\tDay 2 Part 1: {:?}", p1);
     let p2 = part2(&input_str);
-    println!("\tDay 2 Part 2: {:?}", p2);
 
-    return String::from("Day 2");
+    return (
+        DAY_STR.to_string(),
+        String::from(format!("\n\tPart 1: {:?}\n\tPart 2: {:?}", p1, p2)),
+    );
 }
 
 pub fn part1(input_str: &String) -> u32 {

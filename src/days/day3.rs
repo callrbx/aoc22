@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use crate::util;
 
 const DAY_STR: &str = "Day 3";
@@ -7,9 +5,9 @@ const ALPHABET: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 #[derive(Debug)]
 struct Rucksack {
-    bag1: String,
-    bag2: String,
-    all: String,
+    bag1: Vec<u8>,
+    bag2: Vec<u8>,
+    all: Vec<u8>,
 }
 
 #[derive(Debug)]
@@ -27,33 +25,36 @@ impl Rucksack {
         }
         let (i1, i2) = items.split_at(items.len() / 2);
         return Self {
-            bag1: i1.to_string(),
-            bag2: i2.to_string(),
-            all: items.to_string(),
+            bag1: Vec::from(i1),
+            bag2: Vec::from(i2),
+            all: Vec::from(items),
         };
     }
 
-    fn item_priority(item: char) -> u32 {
-        match ALPHABET.find(item) {
-            Some(n) => n as u32 + 1,
-            None => 0,
-        }
-    }
-
     fn priority(self) -> u32 {
-        self.find_shared_items().iter().sum()
+        self.find_shared_items()
+            .iter()
+            .map(|c| Rucksack::item_priority(*c))
+            .sum()
     }
 
-    fn find_shared_items(self) -> Vec<u32> {
-        let mut shared_items: HashMap<char, u32> = HashMap::new();
+    fn find_shared_items(self) -> Vec<u8> {
+        let mut shared_items: Vec<u8> = Vec::new();
 
-        for c in self.bag1.chars() {
-            if self.bag2.contains(c) {
-                shared_items.insert(c, Self::item_priority(c));
+        for c in self.bag1 {
+            if self.bag2.contains(&c) && !shared_items.contains(&c) {
+                shared_items.push(c);
             }
         }
 
-        return shared_items.values().cloned().collect();
+        return shared_items;
+    }
+
+    fn item_priority(item: u8) -> u32 {
+        match ALPHABET.find(item as char) {
+            Some(n) => n as u32 + 1,
+            None => 0,
+        }
     }
 }
 
@@ -67,29 +68,36 @@ impl Group {
     }
 
     fn priority(self) -> u32 {
-        self.find_shared_items().iter().sum()
+        self.find_shared_items()
+            .iter()
+            .map(|c| Rucksack::item_priority(*c))
+            .sum()
     }
 
-    fn find_shared_items(self) -> Vec<u32> {
-        let mut shared_items: HashMap<char, u32> = HashMap::new();
+    fn find_shared_items(self) -> Vec<u8> {
+        let mut shared_items: Vec<u8> = Vec::new();
 
-        for c in self.ruck1.all.chars() {
-            if self.ruck2.all.contains(c) && self.ruck3.all.contains(c) {
-                shared_items.insert(c, Rucksack::item_priority(c));
+        for c in self.ruck1.all {
+            if self.ruck2.all.contains(&c)
+                && self.ruck3.all.contains(&c)
+                && !shared_items.contains(&c)
+            {
+                shared_items.push(c);
             }
         }
-        return shared_items.values().cloned().collect();
+        return shared_items;
     }
 }
 
-pub fn solve() -> String {
+pub fn solve() -> (String, String) {
     let input_str = util::get_input("inputs/day3");
     let p1 = part1(&input_str);
-    println!("\t{} Part 1: {:?}", DAY_STR, p1);
     let p2 = part2(&input_str);
-    println!("\t{} Part 2: {:?}", DAY_STR, p2);
 
-    return DAY_STR.to_string();
+    return (
+        DAY_STR.to_string(),
+        String::from(format!("\n\tPart 1: {:?}\n\tPart 2: {:?}", p1, p2)),
+    );
 }
 
 pub fn part1(input_str: &String) -> u32 {
