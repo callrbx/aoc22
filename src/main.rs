@@ -14,4 +14,5 @@ fn main() {
     time_solve(days::day1::solve);
     time_solve(days::day2::solve);
     time_solve(days::day3::solve);
+    time_solve(days::day4::solve);
 }

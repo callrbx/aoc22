@@ -2,14 +2,15 @@ use crate::util;
 
 const DAY_STR: &str = "Day X";
 
-pub fn solve() -> String {
+pub fn solve() -> (String, String) {
     let input_str = util::get_input("inputs/dayX");
     let p1 = part1(&input_str);
-    println!("\t{} Part 1: {:?}", DAY_STR, p1);
     let p2 = part2(&input_str);
-    println!("\t{} Part 2: {:?}", DAY_STR, p2);
 
-    return DAY_STR.to_string();
+    return (
+        DAY_STR.to_string(),
+        String::from(format!("\n\tPart 1: {:?}\n\tPart 2: {:?}", p1, p2)),
+    );
 }
 
 pub fn part1(input_str: &String) -> u32 {
