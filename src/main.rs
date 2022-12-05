@@ -1,18 +1,25 @@
-use std::time::Instant;
+use std::time::{Duration, Instant};
 mod days;
 mod util;
 
-fn time_solve(func: fn() -> (String, String)) {
+fn time_solve(func: fn() -> (String, String)) -> Duration {
     let start = Instant::now();
     let (day, output) = func();
-    println!("{}: {:.2?} {}", day, start.elapsed(), output)
+    let end = start.elapsed();
+    println!("{}: {:.2?} {}", day, end, output);
+    return end;
 }
 
 fn main() {
+    let mut total: Duration = Duration::new(0, 0);
+
     println!("Running All Day Solves:");
 
-    time_solve(days::day1::solve);
-    time_solve(days::day2::solve);
-    time_solve(days::day3::solve);
-    time_solve(days::day4::solve);
+    total += time_solve(days::day1::solve);
+    total += time_solve(days::day2::solve);
+    total += time_solve(days::day3::solve);
+    total += time_solve(days::day4::solve);
+    total += time_solve(days::day5::solve);
+
+    println!("Total Time: {:.2?}", total);
 }
