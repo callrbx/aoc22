@@ -1,3 +1,4 @@
+use regex::Regex;
 use std::collections::VecDeque;
 
 use crate::util;
@@ -5,10 +6,18 @@ use crate::util;
 const DAY_STR: &str = "Day 5";
 const WIDTH: usize = 4;
 
+#[derive(Clone, Debug)]
+pub struct Move {
+    count: usize,
+    from: usize,
+    to: usize,
+}
+
 #[derive(Clone)]
 pub struct Yard {
-    stacks: Vec<VecDeque<char>>,
-    moves: Vec<String>,
+    stack_fwd: Vec<VecDeque<char>>,
+    stack_reverse: Vec<VecDeque<char>>,
+    moves: Vec<Move>,
 }
 
 impl Yard {
@@ -31,84 +40,45 @@ impl Yard {
 
         for line in &lines[0..lines.len() - 1] {
             let row = line.chars().collect::<Vec<char>>();
-            let items = row.chunks(WIDTH);
-            for (idx, c) in items.enumerate() {
-                match c.len() {
-                    3 | 4 => {
-                        let i = c[1];
-                        if i != ' ' {
-                            stacks[idx].push_back(i);
-                        }
-                    }
-                    _ => {
-                        eprintln!("Found a weird sized chunk: {:?}", c);
-                        std::process::exit(1);
-                    }
+            for n in 0..n_stacks {
+                let pos_char = n * 4 + 1;
+                if row[pos_char] != ' ' {
+                    stacks[n].push_front(row[pos_char]);
                 }
             }
+        }
+
+        let r = Regex::new(r"move (\d+) from (\d+) to (\d+)").unwrap();
+        let mut vec_moves = Vec::new();
+
+        for mv in moves.split("\n") {
+            if mv.len() < 2 {
+                break;
+            }
+            let cap = r.captures(mv).unwrap();
+            vec_moves.push(Move {
+                count: cap[1].parse().unwrap(),
+                from: cap[2].parse::<usize>().unwrap() - 1,
+                to: cap[3].parse::<usize>().unwrap() - 1,
+            });
         }
 
         return Self {
             stacks: stacks,
-            moves: moves
-                .split("\n")
-                .map(|s| s.to_string())
-                .collect::<Vec<String>>(),
+            moves: vec_moves,
         };
     }
 
-    fn do_moves_part1(&mut self) {
+    fn do_moves(&mut self, reverse: bool) {
         for mv in &self.moves {
-            let parts = mv.split_whitespace().collect::<Vec<&str>>();
-            if parts.len() == 0 {
-                return;
+            let from = self.stacks.get_mut(mv.from).unwrap();
+            let mut to_move = from.split_off(from.len() - mv.count);
+
+            if reverse {
+                to_move.make_contiguous().reverse();
             }
-            match parts[0] {
-                "move" => {
-                    let n = parts[1].parse::<usize>().unwrap();
-                    let from = parts[3].parse::<usize>().unwrap() - 1;
-                    let to = parts[5].parse::<usize>().unwrap() - 1;
 
-                    for _ in 0..n {
-                        let t = self.stacks[from].pop_front().unwrap();
-                        self.stacks[to].push_front(t);
-                    }
-                }
-                _ => {
-                    eprintln!("Unsupported: {}", parts[0])
-                }
-            }
-        }
-    }
-
-    fn do_moves_part2(&mut self) {
-        for mv in &self.moves {
-            let parts = mv.split_whitespace().collect::<Vec<&str>>();
-            if parts.len() == 0 {
-                return;
-            }
-            match parts[0] {
-                "move" => {
-                    let n = parts[1].parse::<usize>().unwrap();
-                    let from = parts[3].parse::<usize>().unwrap() - 1;
-                    let to = parts[5].parse::<usize>().unwrap() - 1;
-
-                    let mut x: Vec<char> = Vec::new();
-
-                    for _ in 0..n {
-                        x.push(self.stacks[from].pop_front().unwrap());
-                    }
-
-                    x.reverse();
-
-                    for c in x {
-                        self.stacks[to].push_front(c);
-                    }
-                }
-                _ => {
-                    eprintln!("Unsupported: {}", parts[0])
-                }
-            }
+            self.stacks[mv.to].append(&mut to_move);
         }
     }
 
@@ -116,13 +86,13 @@ impl Yard {
         return self
             .stacks
             .iter()
-            .map(|s| s.front().unwrap())
+            .map(|s| s.back().unwrap())
             .collect::<String>();
     }
 }
 
 pub fn solve() -> (String, String) {
-    let input_str = util::get_input("inputs/day5");
+    let input_str = util::get_input("inputs/day5_huge");
 
     let base_yard = Yard::new(&input_str);
 
@@ -136,12 +106,12 @@ pub fn solve() -> (String, String) {
 }
 
 pub fn part1(mut yard: Yard) -> String {
-    yard.do_moves_part1();
+    yard.do_moves(true);
     return yard.get_tops();
 }
 
 pub fn part2(mut yard: Yard) -> String {
-    yard.do_moves_part2();
+    yard.do_moves(false);
     return yard.get_tops();
 }
 
@@ -152,7 +122,7 @@ mod tests {
 
     #[test]
     fn combined_tests() {
-        let input_str = util::get_input("inputs/day5_tests");
+        let input_str = util::get_input("inputs/day5_test");
 
         let base_yard = Yard::new(&input_str);
 
