@@ -46,7 +46,7 @@ pub fn part2(group_cals: &mut Vec<u32>) -> u32 {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn day1_test() {
+    fn parts1_2() {
         let input_str = super::util::get_input("inputs/day1_test");
 
         let mut group_cals = super::part1(input_str);

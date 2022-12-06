@@ -15,8 +15,7 @@ pub struct Move {
 
 #[derive(Clone)]
 pub struct Yard {
-    stack_fwd: Vec<VecDeque<char>>,
-    stack_reverse: Vec<VecDeque<char>>,
+    stacks: Vec<VecDeque<char>>,
     moves: Vec<Move>,
 }
 
@@ -92,7 +91,7 @@ impl Yard {
 }
 
 pub fn solve() -> (String, String) {
-    let input_str = util::get_input("inputs/day5_huge");
+    let input_str = util::get_input("inputs/day5");
 
     let base_yard = Yard::new(&input_str);
 
@@ -121,7 +120,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn combined_tests() {
+    fn parts1_2() {
         let input_str = util::get_input("inputs/day5_test");
 
         let base_yard = Yard::new(&input_str);
