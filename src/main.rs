@@ -21,6 +21,7 @@ fn main() {
     total += time_solve(days::day4::solve);
     total += time_solve(days::day5::solve);
     total += time_solve(days::day6::solve);
+    total += time_solve(days::day7::solve);
 
     println!("Total Time: {:.2?}", total);
 }

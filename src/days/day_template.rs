@@ -17,7 +17,7 @@ pub fn part1(input_str: &String) -> u32 {
     return 0;
 }
 
-pub fn part2(group_cals: &String) -> u32 {
+pub fn part2(input_str: &String) -> u32 {
     return 0;
 }
 
