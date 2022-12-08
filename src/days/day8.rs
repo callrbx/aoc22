@@ -1,4 +1,4 @@
-use std::{cmp::max, collections::HashSet, sync::BarrierWaitResult};
+use std::{cmp::max, collections::HashSet};
 
 use crate::util;
 use array2d::{self, Array2D};
