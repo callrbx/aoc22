@@ -1,3 +1,4 @@
+
 # Advent of Code 2022
 
 Rust solves for Advent of Code 2022.
@@ -11,32 +12,44 @@ Hopefully this will help somebody.
 ## Usage
 Feel free to use as you see fit.
 
+## Output
 ```
-❯ cargo test
-   Compiling aoc22 v0.1.0 (/home/icon/Projects/aoc22)
-    Finished test [unoptimized + debuginfo] target(s) in 0.22s
-     Running unittests src/main.rs (target/debug/deps/aoc22-007f50c710f9889e)
-
-running 5 tests
-test days::day1::tests::day1_test ... ok
-test days::day2::tests::part1 ... ok
-test days::day2::tests::part2 ... ok
-test days::day3::tests::part2 ... ok
-test days::day3::tests::part1 ... ok
-
-test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-
-❯ cargo run --release
-    Finished release [optimized] target(s) in 0.00s
-     Running `target/release/aoc22`
 Running All Day Solves:
-Day 1: 59.64µs 
-        Part 1: 68442
-        Part 2: 204837
-Day 2: 169.53µs 
-        Part 1: 11873
-        Part 2: 12014
-Day 3: 176.65µs 
-        Part 1: 7674
-        Part 2: 2805
+Day 1: 65.84µs 
+	Part 1: 68442
+	Part 2: 204837
+Day 2: 169.15µs 
+	Part 1: 11873
+	Part 2: 12014
+Day 3: 180.37µs 
+	Part 1: 7674
+	Part 2: 2805
+Day 4: 98.52µs 
+	Part 1: 524
+	Part 2: 798
+Day 5: 486.54µs 
+	Part 1: ZBDRNPMVH
+	Part 2: WDLPFNNNB
+Day 6: 586.52µs 
+	Part 1: 1210
+	Part 2: 3476
+Day 7: 105.27µs 
+	Part 1: 1350966
+	Part 2: 6296435
+Day 8: 522.77µs 
+	Part 1: 1816
+	Part 2: 383520
+Day 9: 971.95µs 
+	Part 1: 6311
+	Part 2: 2482
+Day 10: 10.87µs 
+	Part 1: 14360
+	Part 2: 
+***   **  *  *  **  **** ***  **** **** 
+*  * *  * * *  *  * *    *  * *       * 
+***  *    **   *  * ***  *  * ***    *  
+*  * * ** * *  **** *    ***  *     *   
+*  * *  * * *  *  * *    * *  *    *    
+***   *** *  * *  * **** *  * **** **** 
+Total Time: 3.20ms
 ```
