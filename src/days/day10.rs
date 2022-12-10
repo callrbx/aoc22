@@ -47,10 +47,12 @@ pub fn parts1_2(input_str: &String) -> (i32, String) {
                 pixels.push(draw_pos >= reg - 1 && draw_pos <= reg + 1); // draw pixel
                 draw_pos += 1; // increase pos
                 draw_pos = draw_pos % 40; // wrap
+
                 states.push(reg); // second cycle
                 pixels.push(draw_pos >= reg - 1 && draw_pos <= reg + 1); // draw pixel
                 draw_pos += 1; // increase pos
                 draw_pos = draw_pos % 40; // wrap
+
                 reg += addi.split_once(' ').unwrap().1.parse::<i32>().unwrap() // at end of 2nd cycle, value increases
             }
             _ => {}
@@ -65,7 +67,7 @@ pub fn parts1_2(input_str: &String) -> (i32, String) {
         idx += 40;
     }
 
-    return (strength, draw_output(pixels, '*', ' '));
+    return (strength, draw_output(pixels, '#', ' '));
 }
 
 #[cfg(test)]
