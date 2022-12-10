@@ -132,7 +132,8 @@ pub fn parts1_2(input_str: String) -> (usize, usize) {
                     .collect::<Vec<i32>>()
             })
             .collect::<Vec<Vec<i32>>>(),
-    );
+    )
+    .unwrap();
 
     let trees_vis = vis_from_axis(&grid);
     let max_score = scenic_score(&grid);
